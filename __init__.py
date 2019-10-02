@@ -16,10 +16,10 @@ class Polite(MycroftSkill):
     def converse(self, utterances, lang=None):
         """ The converse method is able to inspect utterances before
             they are passed to the normal intent handling service. """
-        self.log.debug("Impolite utterance detected")
         utt = utterances[0]
         # Check if utt contains any words in vocab/lang-code/RudeWords.voc
         if self.voc_match(utt, "RudeWords"):
+            self.log.debug("Impolite utterance detected")
             self.impolite_count += 1
             self.log.debug("counter: " + str(self.impolite_count))
             # Speak different dialog based on the state of this Skill
@@ -32,6 +32,7 @@ class Polite(MycroftSkill):
         else:
             # If no RudeWord found, return False to pass this utterance on
             # to the normal intent handling process.
+            self.log.debug("No rude words detected")
             return False
 
 
